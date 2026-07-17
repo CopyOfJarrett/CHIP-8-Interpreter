@@ -1,4 +1,4 @@
-use crate::token::{Literal, Token, TokenKind};
+use crate::token::{Token, TokenKind};
 
 pub struct Tokenizer<'src> {
     src: &'src str,
@@ -44,11 +44,6 @@ impl<'src> Iterator for Tokenizer<'src> {
     type Item = Token<'src>;
 
     fn next(&mut self) -> Option<Self::Item> {
-        let token = self.advance_token();
-        if token.kind == TokenKind::Eof {
-            None
-        } else {
-            Some(token)
-        }
+        Some(self.advance_token()).filter(|token| token.kind != TokenKind::Eof)
     }
 }
