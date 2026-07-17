@@ -37,6 +37,13 @@ impl<'src> Tokenizer<'src> {
             b')' => self.build_simple_token(TokenKind::RightParen, start),
             b'{' => self.build_simple_token(TokenKind::LeftBrace, start),
             b'}' => self.build_simple_token(TokenKind::RightBrace, start),
+            b',' => self.build_simple_token(TokenKind::Comma, start),
+            b'.' => self.build_simple_token(TokenKind::Dot, start),
+            b'-' => self.build_simple_token(TokenKind::Minus, start),
+            b'+' => self.build_simple_token(TokenKind::Plus, start),
+            b';' => self.build_simple_token(TokenKind::Semicolon, start),
+            b'/' => self.build_simple_token(TokenKind::Slash, start),
+            b'*' => self.build_simple_token(TokenKind::Star, start),
             _ => todo!(),
         }
     }

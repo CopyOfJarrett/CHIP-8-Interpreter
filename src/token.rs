@@ -34,6 +34,14 @@ pub enum TokenKind {
     LeftBrace,
     RightBrace,
 
+    Comma,
+    Dot,
+    Minus,
+    Plus,
+    Semicolon,
+    Slash,
+    Star,
+
     Eof,
 }
 
@@ -44,6 +52,13 @@ impl fmt::Display for TokenKind {
             Self::RightParen => "RIGHT_PAREN",
             Self::LeftBrace => "LEFT_BRACE",
             Self::RightBrace => "RIGHT_BRACE",
+            Self::Comma => ",",
+            Self::Dot => ".",
+            Self::Minus => "-",
+            Self::Plus => "+",
+            Self::Semicolon => ";",
+            Self::Slash => "/",
+            Self::Star => "*",
             Self::Eof => "EOF",
         })
     }
