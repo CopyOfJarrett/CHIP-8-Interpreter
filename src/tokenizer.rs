@@ -44,6 +44,16 @@ impl<'src> Iterator for Tokenizer<'src> {
     type Item = Token<'src>;
 
     fn next(&mut self) -> Option<Self::Item> {
-        Some(self.advance_token()).filter(|token| token.kind != TokenKind::Eof)
+        if self.pos > self.src.len() {
+            return None;
+        }
+
+        let token = self.advance_token();
+
+        if token.kind == TokenKind::Eof {
+            self.pos += 1;
+        }
+
+        Some(token)
     }
 }
