@@ -20,6 +20,8 @@ impl<'src> Lexer<'src> {
     }
 
     fn advance_token(&mut self) -> Result<Token<'src>, LexError> {
+        self.skip_whitespace();
+
         let start = self.position;
 
         let Some(first_byte) = self.bump() else {
@@ -42,6 +44,19 @@ impl<'src> Lexer<'src> {
                 line: self.line,
                 unexpected: first_byte as char,
             }),
+        }
+    }
+
+    fn skip_whitespace(&mut self) {
+        while let Some(b) = self.peek() {
+            match b {
+                b' ' | b'\t' | b'\r' => self.position += 1,
+                b'\n' => {
+                    self.position += 1;
+                    self.line += 1;
+                }
+                _ => break,
+            }
         }
     }
 

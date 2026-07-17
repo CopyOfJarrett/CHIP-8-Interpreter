@@ -1,6 +1,7 @@
 #![allow(unused_variables)]
 use std::env;
 use std::fs;
+use std::process;
 
 use codecrafters_interpreter::Lexer;
 
@@ -24,11 +25,19 @@ fn main() {
             if file_contents.is_empty() {
                 println!("EOF  null");
             } else {
+                let mut had_error = false;
                 for token in Lexer::new(&file_contents) {
                     match token {
                         Ok(token) => println!("{token}"),
-                        Err(e) => eprintln!("{e}"),
+                        Err(e) => {
+                            had_error = true;
+                            eprintln!("{e}");
+                        }
                     }
+                }
+
+                if had_error {
+                    process::exit(65)
                 }
             }
         }
