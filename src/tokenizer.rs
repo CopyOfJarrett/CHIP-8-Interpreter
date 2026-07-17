@@ -1,5 +1,6 @@
 use crate::token::{Token, TokenKind};
 
+#[derive(Debug)]
 pub struct Tokenizer<'src> {
     src: &'src str,
     pos: usize,
