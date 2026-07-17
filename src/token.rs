@@ -31,6 +31,9 @@ impl fmt::Display for Token<'_> {
 pub enum TokenKind {
     LeftParen,
     RightParen,
+    LeftBrace,
+    RightBrace,
+
     Eof,
 }
 
@@ -39,6 +42,8 @@ impl fmt::Display for TokenKind {
         f.write_str(match self {
             Self::LeftParen => "LEFT_PAREN",
             Self::RightParen => "RIGHT_PAREN",
+            Self::LeftBrace => "LEFT_BRACE",
+            Self::RightBrace => "RIGHT_BRACE",
             Self::Eof => "EOF",
         })
     }

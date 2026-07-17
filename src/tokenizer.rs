@@ -21,7 +21,8 @@ impl<'src> Tokenizer<'src> {
         match first {
             b'(' => self.build_simple_token(TokenKind::LeftParen, start),
             b')' => self.build_simple_token(TokenKind::RightParen, start),
-
+            b'{' => self.build_simple_token(TokenKind::LeftBrace, start),
+            b'}' => self.build_simple_token(TokenKind::RightBrace, start),
             _ => todo!(),
         }
     }
