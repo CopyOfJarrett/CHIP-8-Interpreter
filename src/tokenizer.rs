@@ -11,7 +11,21 @@ impl<'src> Tokenizer<'src> {
         Self { src, pos: 0 }
     }
 
-    pub fn advance_token(&mut self) -> Token<'src> {
+    pub fn tokenize(&mut self) -> Vec<Token<'src>> {
+        let mut tokens = Vec::new();
+        loop {
+            match self.advance_token() {
+                token if matches!(token.kind, TokenKind::Eof) => {
+                    tokens.push(token);
+                    break;
+                }
+                token => tokens.push(token),
+            }
+        }
+        tokens
+    }
+
+    fn advance_token(&mut self) -> Token<'src> {
         let start = self.pos;
 
         let Some(first) = self.bump() else {
@@ -39,23 +53,5 @@ impl<'src> Tokenizer<'src> {
 
     fn peek(&self) -> Option<u8> {
         self.src.as_bytes().get(self.pos).copied()
-    }
-}
-
-impl<'src> Iterator for Tokenizer<'src> {
-    type Item = Token<'src>;
-
-    fn next(&mut self) -> Option<Self::Item> {
-        if self.pos > self.src.len() {
-            return None;
-        }
-
-        let token = self.advance_token();
-
-        if token.kind == TokenKind::Eof {
-            self.pos += 1;
-        }
-
-        Some(token)
     }
 }

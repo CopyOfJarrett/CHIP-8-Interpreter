@@ -24,7 +24,7 @@ fn main() {
             if file_contents.is_empty() {
                 println!("EOF  null");
             } else {
-                for token in Tokenizer::new(&file_contents) {
+                for token in Tokenizer::new(&file_contents).tokenize() {
                     println!("{token}");
                 }
             }
