@@ -2,7 +2,7 @@
 use std::env;
 use std::fs;
 
-use codecrafters_interpreter::Tokenizer;
+use codecrafters_interpreter::Lexer;
 
 fn main() {
     let args: Vec<String> = env::args().collect();
@@ -24,8 +24,11 @@ fn main() {
             if file_contents.is_empty() {
                 println!("EOF  null");
             } else {
-                for token in Tokenizer::new(&file_contents).tokenize() {
-                    println!("{token}");
+                for token in Lexer::new(&file_contents) {
+                    match token {
+                        Ok(token) => println!("{token}"),
+                        Err(e) => eprintln!("{e}"),
+                    }
                 }
             }
         }
